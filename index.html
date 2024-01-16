@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,700;1,400;1,800&display=swap"
+    rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+
+  <title>Frontend Mentor | Age calculator app</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Poppins;
+    }
+
+    body {
+      background-color: hsl(0, 0%, 94%);
+    }
+
+    .container {
+      margin: 100px auto;
+      padding: 25px;
+      width: 635px;
+      height: 475px;
+      border-radius: 15px 15px 150px 15px;
+      background-color: hsl(0, 0%, 100%);
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    header {
+      display: flex;
+      width: 93%;
+      border-bottom: 1px solid hsl(0, 0%, 86%);
+      align-items: center;
+      padding-bottom: 35px;
+    }
+
+    .birthDate {
+      display: flex;
+      flex-direction: column;
+      margin-right: 25px;
+      color: hsl(0, 1%, 44%);
+    }
+
+    label {
+      font-size: 13px;
+    }
+
+    input {
+      width: 125px;
+      height: 55px;
+      border: 1px solid hsl(0, 0%, 86%);
+      border-radius: 5px;
+      font-size: 32px;
+      padding: 10px;
+    }
+
+    input:hover {
+      border: 1px solid hsl(259, 100%, 65%);
+    }
+
+    button {
+      background-color: hsl(259, 100%, 65%);
+      border: none;
+      height: 80px;
+      width: 80px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 40px;
+      position: relative;
+      top: 75px;
+      left: 35px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: hsl(0, 0%, 8%);
+    }
+
+    .time {
+      font-size: 75px;
+      font-weight: 800;
+      font-style: italic;
+      margin-top: 25px;
+    }
+
+    .time div {
+      height: 25%;
+    }
+
+    span {
+      color: hsl(259, 100%, 65%);
+    }
+
+    .inputError {
+      border: 1px solid hsl(0, 100%, 67%);
+    }
+
+    .errorMessage {
+      font-size: 10px;
+      color: hsl(0, 100%, 67%);
+      height: 10px;
+    }
+
+    .errorLabel {
+      color: hsl(0, 100%, 67%);
+    }
+
+
+    @media(max-width: 700px) {
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 768px;
+      }
+
+      .container {
+        width: 350px;
+        height: 480px;
+        padding: 15px;
+        margin: 100px 5px;
+      }
+
+      .birthDate {
+        margin-right: 0;
+      }
+
+      input {
+        width: 85px;
+        font-size: 22px;
+      }
+
+      header {
+        width: 100%;
+        justify-content: space-between;
+        padding-bottom: 40px;
+      }
+
+      button {
+        position: absolute;
+        left: 46%;
+        top: 210px;
+        width: 60px;
+        height: 60px;
+        border-radius: 30px;
+      }
+
+      img {
+        width: 35px;
+      }
+
+      .time {
+        font-size: 60px;
+      }
+    }
+
+    .attribution {
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .attribution a {
+      color: hsl(228, 45%, 44%);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <header>
+      <div class="birthDate">
+        <label for="dayInput">DAY</label>
+        <input id="dayInput" type="number" placeholder="DD">
+        <span class="errorMessage"></span>
+      </div>
+      <div class="birthDate">
+        <label for="monthInput">MONTH</label>
+        <input id="monthInput" type="number" placeholder="MM">
+        <span class="errorMessage"></span>
+      </div>
+      <div class="birthDate">
+        <label for="yearInput">YEAR</label>
+        <input id="yearInput" type="number" placeholder="YYYY">
+        <span class="errorMessage"></span>
+      </div>
+      <button>
+        <img src="/assets/images/icon-arrow.svg" alt="down arrow">
+      </button>
+    </header>
+    <div class="time">
+      <div>
+        <span id="year">- -</span> years
+      </div>
+      <div>
+        <span id="month">- -</span> months
+      </div>
+      <div>
+        <span id="day">- -</span> days
+      </div>
+    </div>
+  </div>
+
+  <div class="attribution">
+    Challenge by <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://github.com/Gustavo-mendes2">Gustavo Mendes</a>.
+  </div>
+</body>
+<script>
+  const birthDay = document.querySelector("#dayInput");
+  const birthMonth = document.querySelector("#monthInput");
+  const birthYear = document.querySelector("#yearInput");
+
+  const years = document.querySelector("#year");
+  const month = document.querySelector("#month");
+  const days = document.querySelector("#day");
+
+  const button = document.querySelector("button");
+  const errorMessage = document.querySelectorAll(".errorMessage")
+  const label = document.querySelectorAll("label")
+
+  const actualDate = new Date
+
+  button.onclick = calculateAge;
+
+  function calculateAge() {
+    const inputs = [birthDay, birthMonth, birthYear]
+    let calculate = true
+
+    inputs.map((input, index) => {
+      input.classList.remove("inputError")
+      errorMessage[index].innerHTML = ""
+      label[index].classList.remove("errorLabel")
+
+      if (input.value == "") {
+        input.classList.add("inputError")
+        errorMessage[index].innerHTML = "this field is required"
+        label[index].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[1].value == actualDate.getMonth() && inputs[0].value > actualDate.getDate()) {
+        inputs[0].classList.add("inputError");
+        errorMessage[0].innerHTML = "must be in the past";
+        label[0].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[1].value < 1 || inputs[1].value > 12 && inputs[0].value > daysInMonth(birthMonth, birthYear)) {
+        inputs[0].classList.add("inputError")
+        errorMessage[0].innerHTML = "invalid day"
+        label[0].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[0].value > daysInMonth(birthMonth, birthYear) || inputs[0].value < 0) {
+        inputs[0].classList.add("inputError")
+        errorMessage[0].innerHTML = "invalid day"
+        label[0].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[2].value == actualDate.getFullYear() && inputs[1].value > (actualDate.getMonth() + 1)) {
+        inputs[1].classList.add("inputError");
+        errorMessage[1].innerHTML = "must be in the past"
+        label[1].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[1].value != "" && inputs[1].value < 1 || inputs[1].value > 12) {
+        inputs[1].classList.add("inputError");
+        errorMessage[1].innerHTML = "invalid month"
+        label[1].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[2].value > actualDate.getFullYear()) {
+        inputs[2].classList.add("inputError");
+        errorMessage[2].innerHTML = "must be in the past"
+        label[2].classList.add("errorLabel")
+        calculate = false
+      }
+      if (inputs[2].value != "" && inputs[2].value.toString().length < 4 || inputs[2].value.toString().length > 5) {
+        inputs[2].classList.add("inputError");
+        errorMessage[2].innerHTML = "invalid year"
+        label[2].classList.add("errorLabel")
+        calculate = false
+      }
+    })
+    if (calculate) {
+      years.innerHTML = 0
+      month.innerHTML = 0
+      days.innerHTML = 0
+
+      const yearAnimation = () => {
+        years.innerHTML = parseInt(years.innerHTML) + 1
+        if (years.innerHTML == (actualDate.getFullYear() - birthYear.value)) {
+          clearInterval(yearAnimationInterval);
+        }
+      }
+      const monthAnimation = () => {
+
+        if (((actualDate.getMonth() + 1) - birthMonth.value) < 0) {
+          if (month.innerHTML == (11 + ((actualDate.getMonth() + 1) - birthMonth.value))) {
+            clearInterval(monthAnimationInterval)
+          }
+        }
+        if (((actualDate.getMonth() + 1) - birthMonth.value) == 0) {
+          clearInterval(monthAnimationInterval);
+        }
+        if (month.innerHTML == ((actualDate.getMonth() + 1) - birthMonth.value)) {
+          clearInterval(monthAnimationInterval);
+        }
+
+        else { month.innerHTML = parseInt(month.innerHTML) + 1 }
+      }
+      const dayAnimation = () => {
+
+        if (actualDate.getDate() - birthDay.value < 0) {
+          if (days.innerHTML == ((daysInMonth(birthMonth, birthYear) - 1) + (actualDate.getDate() - birthDay.value))) {
+            clearInterval(dayAnimationInterval)
+          }
+        }
+        if (actualDate.getDate() - birthDay.value == 0) {
+          clearInterval(dayAnimationInterval)
+        }
+        if (days.innerHTML == (actualDate.getDate() - birthDay.value)) {
+          clearInterval(dayAnimationInterval);
+        }
+        else {
+          days.innerHTML = parseInt(days.innerHTML) + 1
+        }
+      }
+      const yearAnimationInterval = setInterval(yearAnimation, 40)
+      const monthAnimationInterval = setInterval(monthAnimation, 40)
+      const dayAnimationInterval = setInterval(dayAnimation, 40)
+    }
+  }
+
+  function daysInMonth(month, year) {
+    if (month.value < 1 || month.value > 12) {
+      return false
+    }
+
+    const daysPerMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+    if (month.value === 2 && ((year.value % 4 === 0 && year.value % 100 !== 0) || (year.value % 400 === 0))) {
+      return 29;
+    } else {
+      return daysPerMonth[month.value - 1];
+    }
+  }
+</script>
+
+</html>
