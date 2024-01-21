@@ -301,10 +301,14 @@
       days.innerHTML = 0
 
       const yearAnimation = () => {
-        years.innerHTML = parseInt(years.innerHTML) + 1
+        if (((actualDate.getMonth() + 1) > birthMonth.value) || !(actualDate.getDate() > birthDay.value)) {
+          clearInterval(yearAnimationInterval)
+        }
         if (years.innerHTML == (actualDate.getFullYear() - birthYear.value)) {
           clearInterval(yearAnimationInterval);
         }
+
+        years.innerHTML = parseInt(years.innerHTML) + 1
       }
       const monthAnimation = () => {
 
