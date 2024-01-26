@@ -301,14 +301,26 @@
       days.innerHTML = 0
 
       const yearAnimation = () => {
-        if (((actualDate.getMonth() + 1) > birthMonth.value) || !(actualDate.getDate() > birthDay.value)) {
-          clearInterval(yearAnimationInterval)
-        }
-        if (years.innerHTML == (actualDate.getFullYear() - birthYear.value)) {
-          clearInterval(yearAnimationInterval);
+
+        if ((actualDate.getMonth() + 1) < birthMonth.value) {
+          if (years.innerHTML == (actualDate.getFullYear() - 1) - birthYear.value) {
+            years.innerHTML = parseInt(years.innerHTML) - 1
+            clearInterval(yearAnimationInterval)
+          }
         }
 
-        years.innerHTML = parseInt(years.innerHTML) + 1
+        if ((actualDate.getMonth() + 1) == birthMonth.value && actualDate.getDate() < birthDay.value) {
+          if (years.innerHTML == actualDate.getFullYear() - (birthYear.value - 1)) {
+            clearInterval(yearAnimationInterval)
+          }
+        }
+
+        if (years.innerHTML == (actualDate.getFullYear() - birthYear.value)) {
+          clearInterval(yearAnimationInterval);
+          alert("fim")
+        }
+
+        else { years.innerHTML = parseInt(years.innerHTML) + 1 }
       }
       const monthAnimation = () => {
 
